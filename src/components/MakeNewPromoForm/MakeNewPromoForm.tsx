@@ -78,6 +78,7 @@ function MakeNewPromoForm({
             name="discount-value"
             label="Discount Value"
             normal
+            meter={<p>%</p>}
             onChange={(e) => onChangePromoData(e, "value")}
           />
         </div>
@@ -91,6 +92,7 @@ function MakeNewPromoForm({
             label="Max Discount"
             normal
             min={1000}
+            meter={<p>IDR</p>}
             onChange={(e) => onChangePromoData(e, "max")}
           />
         </div>
