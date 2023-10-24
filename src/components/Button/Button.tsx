@@ -55,7 +55,7 @@ const Button: FC<ButtonProps> = ({
       }
       ${
         secondary &&
-        "dark:border-[1px] dark:border-prim-dark dark:bg-prim-libg dark:text-prim-dark hover:dark:-translate-y-1 hover:dark:border-[1px] hover:dark:border-prim-dark hover:dark:bg-prim-dark hover:dark:text-prim-libg hover:dark:shadow-huge-up hover:dark:transition"
+        "dark:border-[1px] dark:border-prim-dark dark:bg-prim-dkbg dark:text-prim-dark hover:dark:-translate-y-1 hover:dark:border-[1px] hover:dark:border-prim-dark hover:dark:bg-prim-dark hover:dark:text-prim-libg hover:dark:shadow-huge-up hover:dark:transition"
       }`}
       {...rest}
     >

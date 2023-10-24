@@ -17,7 +17,6 @@ function TablePagination({
   onClickNextChangePage,
 }: IPagination) {
   const pageInformation = useAdminShipping.use.pagination();
-  console.log(pageInformation);
 
   if (!pageInformation) {
     return null;

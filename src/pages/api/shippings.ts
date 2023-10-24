@@ -38,8 +38,6 @@ export default async function handler(
           "jne",
         );
 
-      console.log(data);
-
       if (data.costs.length === 0) {
         res
           .status(404)
@@ -107,7 +105,6 @@ export default async function handler(
 
     try {
       const shipping = await postShipping();
-      console.log(shipping);
 
       res.status(201).json(shipping);
     } catch (error) {
@@ -115,7 +112,6 @@ export default async function handler(
     }
   } else if (req.method === "GET") {
     const { page, limit, sort, order, q } = req.query;
-    console.log(page, limit, sort, order, q);
 
     const countTotalPage = async () => {
       let totalPage = 0;

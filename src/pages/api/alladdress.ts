@@ -22,7 +22,6 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     const { page, limit, sort, order, q } = req.query;
-    console.log(page, limit, sort, order, q);
 
     const userData = async () => {
       const token = req.headers.authorization;

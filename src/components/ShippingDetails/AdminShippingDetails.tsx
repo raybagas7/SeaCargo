@@ -11,6 +11,7 @@ import ShippingStatus from "../ShippingStatus/ShippingStatus";
 import { useAdminShipping } from "@/store/adminShipping/useAdminShipping";
 import { calculateDiscount } from "@/utils/calculateDiscount";
 import UpdateButton from "../UpdateButton/UpdateButton";
+import WheeleSpin from "../WheeleSpin/WheeleSpin";
 
 interface IAdminShippingDetails {
   trigger: boolean;
@@ -24,9 +25,14 @@ function AdminShippingDetails({
   const selectedShippingId = useAdminShipping.use.selectedShippingId();
   const paymentDetail = useAdminShipping.use.paymentDetail();
   const shippingDetails = useAdminShipping.use.shippingDetails();
+  const shippingReview = useAdminShipping.use.shippingReview();
   const token = getCookie("accessToken");
-  const { getShippingDetails, getPaymentDetails, changeShippingStatus } =
-    useAdminShipping.getState();
+  const {
+    getShippingDetails,
+    getPaymentDetails,
+    changeShippingStatus,
+    getAdminReview,
+  } = useAdminShipping.getState();
 
   const handleOnChangeStatus = (
     cancel: boolean,
@@ -46,10 +52,11 @@ function AdminShippingDetails({
 
   useEffect(() => {
     getShippingDetails(token as string, selectedShippingId as string);
+    getAdminReview(token as string, selectedShippingId as string);
   }, [selectedShippingId, trigger]);
 
   if (!shippingDetails) {
-    return <LoadingSpinner />;
+    return <WheeleSpin />;
   }
 
   return (
@@ -257,102 +264,114 @@ function AdminShippingDetails({
             />
           </div>
         </div>
-        {paymentDetail ? (
-          <div className="flex h-full w-full flex-1 gap-2 self-start rounded-lg p-3 shadow-md">
-            <div className="relative w-[70%] rounded-lg border-[0.5px] border-prim-light p-2 text-xs dark:border-prim-dark">
-              <p className="absolute -top-2 bg-prim-libg px-1 text-xs text-prim-light dark:bg-prim-dkbg dark:text-prim-dark">
-                Payment Detail
-              </p>
-              <p className="mb-2 border-b-[1px] text-center text-lg font-bold text-prim-light">
-                PAID
-              </p>
-              <div className="flex justify-between px-1">
-                <div className="space-y-1">
-                  <p>Base Cost</p>
-                  <p>Discount</p>
-                  {paymentDetail.promo_name && <p>Promo Name</p>}
-                  <p>Max Discount</p>
-                  <p>Get Discount</p>
-                  <p className="font-bold text-prim-light dark:text-prim-dark">
-                    Final Cost
-                  </p>
-                </div>
-                <div className="space-y-1 text-right">
-                  <p
-                    className={`${
-                      paymentDetail.discount &&
-                      " line-through decoration-red-500"
-                    }`}
-                  >
-                    Rp {currencyFormat.format(paymentDetail.base_cost)}
-                  </p>
-                  <p>{paymentDetail.discount}%</p>
-                  {paymentDetail.promo_name && (
-                    <p>{paymentDetail.promo_name}</p>
-                  )}
-                  <p>
-                    Rp{" "}
-                    {currencyFormat.format(
-                      paymentDetail.max_discount as number,
+        <div className={`${paymentDetail && "h-full w-full flex-1"}`}>
+          {paymentDetail ? (
+            <div className="flex h-full w-full gap-2 self-start rounded-lg p-3 shadow-md">
+              <div className="relative w-[70%] rounded-lg border-[0.5px] border-prim-light p-2 text-xs dark:border-prim-dark">
+                <p className="absolute -top-2 bg-prim-libg px-1 text-xs text-prim-light dark:bg-prim-dkbg dark:text-prim-dark">
+                  Payment Detail
+                </p>
+                <p className="mb-2 border-b-[1px] text-center text-lg font-bold text-prim-light">
+                  PAID
+                </p>
+                <div className="flex justify-between px-1">
+                  <div className="space-y-1">
+                    <p>Base Cost</p>
+                    <p>Discount</p>
+                    {paymentDetail.promo_name && <p>Promo Name</p>}
+                    <p>Max Discount</p>
+                    <p>Get Discount</p>
+                    <p className="font-bold text-prim-light dark:text-prim-dark">
+                      Final Cost
+                    </p>
+                  </div>
+                  <div className="space-y-1 text-right">
+                    <p
+                      className={`${
+                        paymentDetail.discount &&
+                        " line-through decoration-red-500"
+                      }`}
+                    >
+                      Rp {currencyFormat.format(paymentDetail.base_cost)}
+                    </p>
+                    <p>{paymentDetail.discount}%</p>
+                    {paymentDetail.promo_name && (
+                      <p>{paymentDetail.promo_name}</p>
                     )}
-                  </p>
-                  <p>
-                    Rp{" "}
-                    {currencyFormat.format(
-                      calculateDiscount(
-                        paymentDetail.base_cost,
-                        paymentDetail.discount as number,
+                    <p>
+                      Rp{" "}
+                      {currencyFormat.format(
                         paymentDetail.max_discount as number,
-                      ),
-                    )}
-                  </p>
-                  <p className="font-bold text-prim-light dark:text-prim-dark">
-                    Rp {currencyFormat.format(paymentDetail.final_cost)}
-                  </p>
+                      )}
+                    </p>
+                    <p>
+                      Rp{" "}
+                      {currencyFormat.format(
+                        calculateDiscount(
+                          paymentDetail.base_cost,
+                          paymentDetail.discount as number,
+                          paymentDetail.max_discount as number,
+                        ),
+                      )}
+                    </p>
+                    <p className="font-bold text-prim-light dark:text-prim-dark">
+                      Rp {currencyFormat.format(paymentDetail.final_cost)}
+                    </p>
+                  </div>
                 </div>
               </div>
+              <div className="flex flex-1 flex-col justify-evenly">
+                <UpdateButton
+                  type="button"
+                  icon={<GiShipWreck className="h-full w-full" />}
+                  wmax
+                  cancel
+                  name="update-status"
+                  disabled={
+                    shippingDetails.cancel ||
+                    shippingDetails.shipped ||
+                    shippingDetails.delivered
+                  }
+                  onClick={() => handleOnChangeStatus(true, false, false)}
+                >
+                  Canceled
+                </UpdateButton>
+                <UpdateButton
+                  type="button"
+                  icon={<FaShip className="h-full w-full" />}
+                  wmax
+                  ship
+                  name="update-status"
+                  disabled={shippingDetails.shipped || shippingDetails.cancel}
+                  onClick={() => handleOnChangeStatus(false, true, false)}
+                >
+                  Shipped
+                </UpdateButton>
+                <UpdateButton
+                  type="button"
+                  icon={<BsFillBoxSeamFill className="h-full w-full" />}
+                  wmax
+                  deliver
+                  name="update-status"
+                  disabled={shippingDetails.delivered || shippingDetails.cancel}
+                  onClick={() => handleOnChangeStatus(false, false, true)}
+                >
+                  Delivered
+                </UpdateButton>
+              </div>
             </div>
-            <div className="flex flex-1 flex-col justify-evenly">
-              <UpdateButton
-                type="button"
-                icon={<GiShipWreck className="h-full w-full" />}
-                wmax
-                cancel
-                name="update-status"
-                disabled={
-                  shippingDetails.cancel ||
-                  shippingDetails.shipped ||
-                  shippingDetails.delivered
-                }
-                onClick={() => handleOnChangeStatus(true, false, false)}
-              >
-                Canceled
-              </UpdateButton>
-              <UpdateButton
-                type="button"
-                icon={<FaShip className="h-full w-full" />}
-                wmax
-                ship
-                name="update-status"
-                disabled={shippingDetails.shipped || shippingDetails.cancel}
-                onClick={() => handleOnChangeStatus(false, true, false)}
-              >
-                Shipped
-              </UpdateButton>
-              <UpdateButton
-                type="button"
-                icon={<BsFillBoxSeamFill className="h-full w-full" />}
-                wmax
-                deliver
-                name="update-status"
-                disabled={shippingDetails.delivered || shippingDetails.cancel}
-                onClick={() => handleOnChangeStatus(false, false, true)}
-              >
-                Delivered
-              </UpdateButton>
+          ) : null}
+          {shippingReview && (
+            <div className="flex h-full w-full gap-2 self-start rounded-lg p-3 shadow-md">
+              <div className="relative mt-5 w-full rounded-lg border-[0.5px] border-prim-light p-3 dark:border-prim-dark">
+                <p className="absolute -top-2 bg-prim-libg px-1 text-xs text-prim-light dark:bg-prim-dkbg dark:text-prim-dark">
+                  Review Description
+                </p>
+                <p>{shippingReview.review}</p>
+              </div>
             </div>
-          </div>
-        ) : null}
+          )}
+        </div>
       </div>
     </div>
   );

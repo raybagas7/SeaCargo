@@ -1,21 +1,21 @@
 import React from "react";
-import UserNavigation from "../UserNavigation/UserNavigation";
 import { ToastContainer } from "react-toastify";
+import HomeNavigation from "../UserNavigation/HomeNavigation";
 import Footer from "../Footer/Footer";
 
-interface ILayout {
+interface IHomeLayout {
   children: React.ReactNode;
 }
 
-function Layout({ children }: ILayout) {
+function HomeLayout({ children }: IHomeLayout) {
   return (
     <div className={`flex min-h-screen flex-col`}>
-      <UserNavigation />
-      <div className="mb-10 w-full">{children}</div>
+      <HomeNavigation />
+      <div className="w-full">{children}</div>
       <Footer />
       <ToastContainer />
     </div>
   );
 }
 
-export default Layout;
+export default HomeLayout;

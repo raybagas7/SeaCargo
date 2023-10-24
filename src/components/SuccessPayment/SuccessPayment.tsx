@@ -2,11 +2,11 @@ import React from "react";
 import Button from "../Button/Button";
 import { useRouter } from "next/router";
 import { useShipping } from "@/store/shipping/useShipping";
-import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { BsFillPatchCheckFill } from "react-icons/bs";
 import { currencyFormat } from "@/utils/currencyFormat";
 import { useModal } from "@/store/modal/useModal";
 import { TbGiftCardFilled } from "react-icons/tb";
+import WheeleSpin from "../WheeleSpin/WheeleSpin";
 
 function SuccessPayment() {
   const router = useRouter();
@@ -15,7 +15,7 @@ function SuccessPayment() {
   const randomGames = Math.random() < 0.3;
 
   if (!paymentDetail) {
-    return <LoadingSpinner />;
+    return <WheeleSpin />;
   }
 
   return (

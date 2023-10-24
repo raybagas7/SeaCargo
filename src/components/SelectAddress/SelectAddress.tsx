@@ -109,12 +109,16 @@ function SelectAddress({ triggerUseEffect }: IEditAddress) {
       onSubmit={(e) => handleSubmitAddress(e)}
       className="space-y-3 rounded-lg border-[0.5px] border-border-light bg-prim-libg p-5 shadow-md tablet:flex-1"
     >
+      <h2 className="text-center text-xl font-bold text-prim-light dark:text-prim-dark">
+        Add New Address
+      </h2>
       <Input
         label="Address"
         value={addressData.address}
         onChange={(e) => onChageAddressData(e, "address")}
         name="address"
         normal
+        required
         wmax
       />
       <SelectProvince
@@ -122,6 +126,7 @@ function SelectAddress({ triggerUseEffect }: IEditAddress) {
         name="provinces"
         data={provinces}
         label="Province"
+        required
         onChange={(e) => onChageAddressData(e, "provCode", "province")}
         labelOnTop
       />
@@ -131,6 +136,7 @@ function SelectAddress({ triggerUseEffect }: IEditAddress) {
         name="cities"
         data={cities}
         label="City"
+        required
         onChange={(e) => onChageAddressData(e, "cityCode", "city")}
         labelOnTop
       />
@@ -140,6 +146,7 @@ function SelectAddress({ triggerUseEffect }: IEditAddress) {
         name="postalCode"
         data={cities}
         label="Postal Code"
+        required
         onChange={(e) => onChageAddressData(e, "postalCode")}
         labelOnTop
       />
@@ -148,6 +155,7 @@ function SelectAddress({ triggerUseEffect }: IEditAddress) {
         name="detail-add-address"
         label="Detail Address"
         value={addressData.detailAddress}
+        required
         onChange={(e) => onChageAddressData(e, "detailAddress")}
       ></TextArea>
 

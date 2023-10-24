@@ -19,7 +19,7 @@ function List({ name, icon, isActive, to, onClick }: IList) {
   return (
     <Link
       onClick={onClick && onClick}
-      className={`${linkContainerClasses}`}
+      className={`${linkContainerClasses} dark:text-prim-dktext dark:hover:bg-prim-dark/10 dark:hover:text-prim-dark`}
       href={to}
     >
       <div className="text-xl ">{icon}</div>

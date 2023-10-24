@@ -27,7 +27,6 @@ const useAdminEarningsBase = create<State & Actions>((set) => ({
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
 
         set(() => ({
           earningSeaCargo: data,

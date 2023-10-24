@@ -29,10 +29,10 @@ function EntryContainer() {
   const wrapperClasses = classNames(styles.wrapper);
 
   return (
-    <div className="relative h-[100vh]">
+    <div className="relative h-[100vh] max-tablet:flex max-tablet:w-full max-tablet:justify-center">
       <div className={containerClassesRegister}>
         <div
-          className={`${wrapperClasses} dark:bg-second-dkbg dark:shadow-white/10`}
+          className={`${wrapperClasses} dark:border-border-dark dark:bg-prim-dkbg`}
         >
           <RegisterForm />
           <div className="mt-5 flex justify-end">
@@ -49,7 +49,7 @@ function EntryContainer() {
       </div>
       <div className={containerClassesLogin}>
         <div
-          className={`${wrapperClasses} dark:bg-second-dkbg dark:shadow-white/10`}
+          className={`${wrapperClasses} dark:border-border-dark dark:bg-prim-dkbg`}
         >
           <LoginForm />
           <div className="mt-5 flex justify-end">

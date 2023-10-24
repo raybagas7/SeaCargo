@@ -61,6 +61,7 @@ function MakeNewPromoForm({
             label="Count"
             normal
             wmax
+            meter={<p>pcs</p>}
             onChange={(e) => onChangePromoData(e, "count")}
           />
         </div>

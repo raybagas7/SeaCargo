@@ -51,12 +51,10 @@ const useRajaOngkirBase = create<State & Actions>((set) => ({
       } else {
         hideLoading();
         const data = await response.json();
-        console.log(data.error);
         toastifyError(data.error);
       }
     } catch (error) {
       hideLoading();
-      console.log(String(error));
       toastifyError(String(error));
     }
   },
@@ -80,12 +78,10 @@ const useRajaOngkirBase = create<State & Actions>((set) => ({
       } else {
         hideLoading();
         const data = await response.json();
-        console.log(data.error);
         toastifyError(data.error);
       }
     } catch (error) {
       hideLoading();
-      console.log(String(error));
       toastifyError(String(error));
     }
   },
@@ -112,12 +108,10 @@ const useRajaOngkirBase = create<State & Actions>((set) => ({
       } else {
         hideLoading();
         const data = await response.json();
-        console.log(data.error);
         toastifyError(data.error);
       }
     } catch (error) {
       hideLoading();
-      console.log(String(error));
       toastifyError(String(error));
     }
   },
@@ -141,12 +135,10 @@ const useRajaOngkirBase = create<State & Actions>((set) => ({
       } else {
         hideLoading();
         const data = await response.json();
-        console.log(data.error);
         toastifyError(data.error);
       }
     } catch (error) {
       hideLoading();
-      console.log(String(error));
       toastifyError(String(error));
     }
   },

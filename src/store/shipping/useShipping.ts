@@ -6,6 +6,7 @@ import { IAddress } from "@/interface/addresses";
 import {
   INewShippingData,
   IPromosData,
+  IReview,
   IShippingDataPayload,
 } from "@/interface/shippings";
 import { toastifySuccess } from "@/utils/toastifySuccess";
@@ -26,6 +27,7 @@ type State = {
   appliedReferal: string | undefined;
   paymentDetail: IPayment | undefined;
   pagination: IPagination | undefined;
+  shippingReview: IReview | undefined;
 };
 
 type Actions = {
@@ -46,6 +48,8 @@ type Actions = {
   setSelectedPromo: (promo: IPromosData) => void;
   resetPromo: () => void;
   checkReferal: (token: string, referalCode: string) => void;
+  postReview: (token: string, shipping_id: string, review: string) => void;
+  getReview: (token: string, shipping_id: string) => void;
   payShipping: (
     token: string,
     totalCost: number,
@@ -67,6 +71,69 @@ const useShippingBase = create<State & Actions>((set) => ({
   appliedReferal: undefined,
   paymentDetail: undefined,
   pagination: undefined,
+  shippingReview: undefined,
+  getReview: async (token: string, shipping_id: string) => {
+    const { showLoading, hideLoading } = useLoading.getState();
+    try {
+      showLoading();
+      const response = await fetch(`/api/review?shipping_id=${shipping_id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${token}`,
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+
+        set(() => ({
+          shippingReview: data[0],
+        }));
+        hideLoading();
+      } else {
+        hideLoading();
+        const data = await response.json();
+        toastifyError(data.error);
+      }
+    } catch (error) {
+      hideLoading();
+      toastifyError(String(error));
+    }
+  },
+  postReview: async (token: string, shipping_id: string, review: string) => {
+    const { showLoading, hideLoading } = useLoading.getState();
+    try {
+      showLoading();
+      const response = await fetch("/api/review", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${token}`,
+        },
+        body: JSON.stringify({
+          review: review,
+          shipping_id: shipping_id,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        set(() => ({
+          shippingReview: data,
+        }));
+        toastifySuccess("Review Submitted");
+        hideLoading();
+      } else {
+        hideLoading();
+        const data = await response.json();
+        toastifyError(data.error);
+      }
+    } catch (error) {
+      hideLoading();
+      toastifyError(String(error));
+    }
+  },
   payShipping: async (
     token: string,
     totalCost: number,
@@ -97,7 +164,6 @@ const useShippingBase = create<State & Actions>((set) => ({
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         set(() => ({ paymentDetail: data.data }));
         toastifySuccess(data.message);
         showModal3();
@@ -126,7 +192,6 @@ const useShippingBase = create<State & Actions>((set) => ({
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data.user.fullname);
         if (data.user.email === userData?.email) {
           toastifyInfo(`Referal code belong to yourself`);
           set(() => ({ appliedReferal: undefined }));
@@ -138,13 +203,11 @@ const useShippingBase = create<State & Actions>((set) => ({
       } else {
         hideLoading();
         const data = await response.json();
-        console.log(data.error);
         toastifyError(data.error);
         set(() => ({ appliedReferal: undefined }));
       }
     } catch (error) {
       hideLoading();
-      console.log(String(error));
       toastifyError(String(error));
       set(() => ({ appliedReferal: undefined }));
     }
@@ -168,7 +231,6 @@ const useShippingBase = create<State & Actions>((set) => ({
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
 
         set(() => ({
           promosData: data,
@@ -177,12 +239,10 @@ const useShippingBase = create<State & Actions>((set) => ({
       } else {
         hideLoading();
         const data = await response.json();
-        console.log(data.error);
         toastifyError(data.error);
       }
     } catch (error) {
       hideLoading();
-      console.log(String(error));
       toastifyError(String(error));
     }
   },
@@ -210,12 +270,10 @@ const useShippingBase = create<State & Actions>((set) => ({
       } else {
         hideLoading();
         const data = await response.json();
-        console.log(data.error);
         toastifyError(data.error);
       }
     } catch (error) {
       hideLoading();
-      console.log(String(error));
       toastifyError(String(error));
     }
   },
@@ -281,7 +339,6 @@ const useShippingBase = create<State & Actions>((set) => ({
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
 
         toastifySuccess(`New shipping added to your shipping list`);
         hideLoading();
@@ -308,7 +365,6 @@ const useShippingBase = create<State & Actions>((set) => ({
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
 
         set(() => ({
           userAddresses: [...data],

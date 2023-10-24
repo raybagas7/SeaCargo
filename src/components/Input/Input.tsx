@@ -20,6 +20,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   small?: boolean;
   large?: boolean;
   noround?: boolean;
+  meter?: React.ReactNode;
 }
 
 const Input: FC<InputProps> = ({
@@ -34,6 +35,7 @@ const Input: FC<InputProps> = ({
   small,
   large,
   noround,
+  meter,
   value,
   ...rest
 }) => {
@@ -63,7 +65,7 @@ const Input: FC<InputProps> = ({
           {label}
         </label>
       )}
-      <div className={`${inputContainer} dark:border-prim-dark`}>
+      <div className={`${inputContainer} relative dark:border-prim-dark`}>
         <input
           className={`${
             noround ? "rounded-tr-md" : "rounded-t-md "
@@ -73,6 +75,12 @@ const Input: FC<InputProps> = ({
           value={value || ""}
           {...rest}
         ></input>
+        {meter && (
+          <div className="absolute bottom-1 right-3 text-prim-light dark:text-prim-dark">
+            {meter}
+          </div>
+        )}
+        {/* <p className="absolute bottom-1 right-3">Kg</p> */}
       </div>
       {showErrorMsg && <ErrorMessage message={errorMsg} />}
     </div>

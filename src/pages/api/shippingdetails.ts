@@ -23,7 +23,6 @@ export default async function handler(
       const token = req.headers.authorization;
 
       const decoded = token ? decodeJWT(token) : null;
-      // console.log(decoded);
 
       if (decoded === null) {
         res.status(408).json({ error: "Token timeout" });

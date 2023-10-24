@@ -23,12 +23,10 @@ export default async function handler(
     const login = async () => {
       const { error, data, message }: IResponseApi<any> =
         await service.postUserLogin(loginPayload);
-      console.log(message);
 
       if (error) {
         res.status(400).json({ error: message });
       } else {
-        console.log(data);
         return data;
       }
     };

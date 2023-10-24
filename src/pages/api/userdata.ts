@@ -22,7 +22,6 @@ export default async function handler(
       const token = req.headers.authorization;
 
       const decoded = token ? decodeJWT(token) : null;
-      // console.log(decoded);
 
       if (decoded === null) {
         res.status(408).json({ error: "Token timeout" });
@@ -31,7 +30,6 @@ export default async function handler(
 
       const { error, data, message, code }: IResponseApi<any> =
         await service.getUserData(userId, token as string);
-      // console.log(data, error);
 
       if (error && code === 401) {
         res.status(code).json({ error: message });
@@ -60,8 +58,6 @@ export default async function handler(
       }
       const userId = decoded ? decoded.sub : null;
       const payload = req.body;
-      // console.log(payload);
-      // console.log(userId);
 
       const { error, data, message, code }: IResponseApi<any> =
         await service.updateUserData(userId, token as string, payload);
@@ -77,7 +73,6 @@ export default async function handler(
 
     try {
       const user = await updateData();
-      // console.log(user);
 
       const { password, id, ...information } = user;
 

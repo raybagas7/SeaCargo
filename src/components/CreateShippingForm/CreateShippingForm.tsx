@@ -116,7 +116,7 @@ function CreateShippingForm({
           />
         }
       />
-      <div className="px-10">
+      <div className="px-10 tablet:max-w-[700px]">
         <form onSubmit={handleSubmitShipping} className="space-y-5">
           {/*Select Address Input*/}
           <div className="text-prim-litex w-full rounded-lg border-[0.5px] border-border-light bg-prim-libg p-5 shadow-md">
@@ -137,7 +137,9 @@ function CreateShippingForm({
           </div>
           {/*Select Item Properties Input*/}
           <div className="text-prim-litex w-full rounded-lg border-[0.5px] border-border-light bg-prim-libg p-10 shadow-md">
-            <h2 className="mb-5 text-center">Item Properties</h2>
+            <h2 className="mb-5 text-center text-xl font-bold text-prim-light dark:text-prim-dark">
+              Item Properties
+            </h2>
             <div className="flex w-full flex-col items-center gap-3">
               <BsFillBoxSeamFill className="h-20 w-20 text-prim-light" />
               <div className="w-full flex-1 space-y-3">
@@ -159,6 +161,8 @@ function CreateShippingForm({
                   normal
                   wmax
                   type="number"
+                  min={1}
+                  meter={<p>cm</p>}
                   required
                 />
                 <Input
@@ -169,6 +173,8 @@ function CreateShippingForm({
                   normal
                   wmax
                   type="number"
+                  min={1}
+                  meter={<p>cm</p>}
                   required
                 />
                 <Input
@@ -179,6 +185,8 @@ function CreateShippingForm({
                   normal
                   wmax
                   type="number"
+                  min={1}
+                  meter={<p>cm</p>}
                   required
                 />
                 <Input
@@ -189,6 +197,8 @@ function CreateShippingForm({
                   normal
                   wmax
                   type="number"
+                  meter={<p>gram</p>}
+                  min={1}
                   required
                 />
                 <Input
@@ -233,11 +243,6 @@ function CreateShippingForm({
                   />
                 </div>
               </div>
-              {/* <div className="flex gap-3">
-                <CheckBox name="insurance" label="Insurance" />
-                <CheckBox name="gogreen" label="GoGreen" />
-                <CheckBox name="donation" label="Donation" />
-              </div> */}
               <div className="flex flex-wrap justify-center gap-2">
                 <button
                   type="button"

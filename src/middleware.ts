@@ -5,11 +5,9 @@ import { decodeJWT } from "./utils/jwtDecode";
 export function middleware(request: NextRequest) {
   let cookieToken = request.cookies.get("accessToken");
   const token = cookieToken?.value;
-  // console.log("cookie", cookieToken);
   const decoded = token ? decodeJWT(token) : null;
   const userId = decoded ? decoded.sub : null;
   const expirationTimestamp = decoded ? decoded.exp : null;
-  // console.log("aaaaEXP", expirationTimestamp);
 
   if (
     expirationTimestamp &&

@@ -30,7 +30,7 @@ function AddressesUser({ trigger }: IAddressesUser) {
 
   return (
     <div className="mt-5 w-full space-y-3 rounded-lg border-[0.5px] border-border-light p-5 shadow-md tablet:mt-0 tablet:flex-1">
-      <h2 className="text-center text-xl font-bold text-prim-light dark:bg-prim-dark">
+      <h2 className="text-center text-xl font-bold text-prim-light dark:text-prim-dark">
         Your Address
       </h2>
       {userAddresses?.map((address) => (

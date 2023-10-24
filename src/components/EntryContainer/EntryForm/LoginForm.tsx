@@ -53,7 +53,7 @@ function LoginForm() {
 
   return (
     <>
-      <h1 className="mb-5 text-center text-prim-litext dark:text-prim-dktext">
+      <h1 className="mb-5 text-center text-lg font-bold text-prim-light dark:text-prim-dark">
         LOGIN
       </h1>
       <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col gap-3">

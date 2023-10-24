@@ -73,6 +73,7 @@ function TopUp() {
           name="topup_balace"
           normal
           min="1"
+          meter={<p>IDR</p>}
           label="Amount"
         />
         <div className="mt-5 w-full">

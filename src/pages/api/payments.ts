@@ -31,7 +31,6 @@ export default async function handler(
     const token = req.headers.authorization;
     const { total_cost, promo_id, referal, shipping_id, shipping_name } =
       req.body;
-    console.log(promo_id, referal, total_cost, shipping_id, shipping_name);
 
     const decoded = token ? decodeJWT(token) : null;
     const userId = decoded ? decoded.sub : null;
@@ -111,12 +110,9 @@ export default async function handler(
       let referalBonus: number = 1000;
       const walletRes = await getWallet();
       walletData = walletRes ? walletRes : undefined;
-      console.log(walletRes);
 
       if (promo_id) {
         const promoRes = await getPromo();
-        console.log(promoRes);
-        // await service.getWalletUserData(promoRes.id, token as string);
 
         promoData = promoRes ? promoRes : undefined;
       }
@@ -125,17 +121,10 @@ export default async function handler(
         const referealRes = await getReferal();
         if (referealRes) {
           const refWalletRes = await getReferalWallet(referealRes.id);
-          console.log(refWalletRes);
           referalWalletData = refWalletRes;
         }
-        console.log(referealRes);
         referalData = referealRes ? referealRes : undefined;
       }
-
-      console.log(walletData);
-      console.log(promoData);
-      console.log(referalData);
-      console.log(referalWalletData);
 
       if (promoData) {
         userNeedTopay = calculateFinalCost(
@@ -191,9 +180,6 @@ export default async function handler(
             }
             await service.patchShippingToPaid(shipping_id, token as string);
             if (referal && referalWalletData && referalData) {
-              console.log(referalWalletData.id);
-              console.log(referalWalletData.balance);
-
               const refUpdatedBalance =
                 referalWalletData.balance + referalBonus;
               await service.patchReferalWallet(
@@ -206,12 +192,10 @@ export default async function handler(
           }
         }
       }
-      console.log(userNeedTopay);
     };
 
     try {
       const paymentData = await calculatePayment();
-      console.log(paymentData);
 
       res.status(201).json({ message: "Success Payment", data: paymentData });
     } catch (error) {

@@ -1754,5 +1754,15 @@
       "cost": 11000,
       "totalCost": 25000
     }
+  ],
+  "reviews": [
+    {
+      "id": "review-tF2xdu",
+      "userId": "user-KUjAp7",
+      "shipping_id": "shipping-ouCy2e",
+      "review": "Tes lagi",
+      "createdAt": 1698147162000,
+      "updatedAt": 1698147162000
+    }
   ]
 }

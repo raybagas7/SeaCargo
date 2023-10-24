@@ -80,7 +80,6 @@ export default async function handler(
 
     try {
       const wallet = await updateData();
-      console.log(wallet);
 
       res.status(201).json({ message: "TopUp Success", wallet });
     } catch (error) {

@@ -22,7 +22,6 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     const { page, limit, sort, order, q } = req.query;
-    console.log(page, limit, sort, order, q);
 
     const countTotalPage = async () => {
       let totalPage = 0;
@@ -93,7 +92,6 @@ export default async function handler(
 
     try {
       const { allPayments, pagination }: any = await paymentsData();
-      console.log(allPayments, pagination);
 
       res.status(201).json({
         paymentList: allPayments as IPayment[],

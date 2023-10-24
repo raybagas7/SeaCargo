@@ -1,5 +1,5 @@
 import { IPayment } from "@/interface/payments";
-import { IShippingDataPayload } from "@/interface/shippings";
+import { IReview, IShippingDataPayload } from "@/interface/shippings";
 import { BASE_JSON_URL } from "@/utils/connection";
 import axios from "axios";
 
@@ -27,8 +27,6 @@ const service = (() => {
         code: response.status,
       };
     } catch (error: any) {
-      console.log(error);
-
       return {
         error: true,
         data: null,
@@ -53,8 +51,6 @@ const service = (() => {
         code: response.status,
       };
     } catch (error: any) {
-      console.log(error.response);
-
       return {
         error: true,
         data: null,
@@ -106,9 +102,6 @@ const service = (() => {
         code: response.status,
       };
     } catch (error: any) {
-      // console.log(error.response);
-      // console.log(error.response.statusText);
-
       return {
         error: true,
         data: null,
@@ -119,10 +112,6 @@ const service = (() => {
   };
 
   const updateUserData = async (id: string, token: string, payload: any) => {
-    console.log(id);
-    console.log(payload);
-    console.log(token);
-
     try {
       const response = await axios.patch(
         `${BASE_JSON_URL}/660/users/${id}`,
@@ -140,9 +129,6 @@ const service = (() => {
         code: response.status,
       };
     } catch (error: any) {
-      console.log(error.response);
-      console.log(error.response.statusText);
-
       return {
         error: true,
         data: null,
@@ -170,9 +156,6 @@ const service = (() => {
         code: response.status,
       };
     } catch (error: any) {
-      // console.log(error.response);
-      // console.log(error.response.statusText);
-
       return {
         error: true,
         data: null,
@@ -188,8 +171,6 @@ const service = (() => {
     balance: number,
   ) => {
     try {
-      console.log(walletId, balance, token);
-
       const response = await axios.patch(
         `${BASE_JSON_URL}/640/wallets/${walletId}`,
         { balance },
@@ -216,8 +197,6 @@ const service = (() => {
   };
 
   const postPromo = async (token: string, payload: any) => {
-    console.log(payload);
-
     try {
       const response = await axios.post(
         `${BASE_JSON_URL}/660/promos`,
@@ -273,8 +252,6 @@ const service = (() => {
 
   const patchShippingToPaid = async (shippingId: string, token: string) => {
     try {
-      console.log(shippingId, token);
-
       const response = await axios.patch(
         `${BASE_JSON_URL}/640/shippings/${shippingId}`,
         { paid: true },
@@ -302,8 +279,6 @@ const service = (() => {
 
   const patchShippingToCanceled = async (shippingId: string, token: string) => {
     try {
-      console.log(shippingId, token);
-
       const response = await axios.patch(
         `${BASE_JSON_URL}/660/shippings/${shippingId}`,
         { cancel: true },
@@ -331,8 +306,6 @@ const service = (() => {
 
   const patchShippingToShipped = async (shippingId: string, token: string) => {
     try {
-      console.log(shippingId, token);
-
       const response = await axios.patch(
         `${BASE_JSON_URL}/660/shippings/${shippingId}`,
         { shipped: true },
@@ -363,8 +336,6 @@ const service = (() => {
     token: string,
   ) => {
     try {
-      console.log(shippingId, token);
-
       const response = await axios.patch(
         `${BASE_JSON_URL}/660/shippings/${shippingId}`,
         { delivered: true, shipped: true },
@@ -396,8 +367,6 @@ const service = (() => {
     balance: number,
   ) => {
     try {
-      console.log(walletId, balance, token);
-
       const response = await axios.patch(
         `${BASE_JSON_URL}/660/wallets/${walletId}`,
         { balance },
@@ -461,7 +430,6 @@ const service = (() => {
       );
 
       const topupData = response.data;
-      console.log("wallet data", topupData);
       return {
         error: false,
         data: topupData,
@@ -488,7 +456,6 @@ const service = (() => {
       );
 
       const topupData = response.data;
-      console.log("wallet data", topupData);
       return {
         error: false,
         data: topupData,
@@ -511,7 +478,7 @@ const service = (() => {
         `https://api.rajaongkir.com/starter/province`,
         {
           headers: {
-            key: "4acc68474d7b20b55df2534dc61458d2",
+            key: 'ecf50dc058ee18769d2c8aa8fcb8d7bc',
           },
         },
       );
@@ -540,7 +507,7 @@ const service = (() => {
         {
           params: { province: provinceCode },
           headers: {
-            key: "4acc68474d7b20b55df2534dc61458d2",
+            key: 'ecf50dc058ee18769d2c8aa8fcb8d7bc',
           },
         },
       );
@@ -571,7 +538,7 @@ const service = (() => {
   ) => {
     try {
       const bodyParameters = {
-        key: "4acc68474d7b20b55df2534dc61458d2",
+        key: 'ecf50dc058ee18769d2c8aa8fcb8d7bc',
         origin,
         destination,
         weight,
@@ -1098,7 +1065,6 @@ const service = (() => {
       );
 
       const shippingDetail = response.data;
-      console.log(shippingDetail);
 
       return {
         error: false,
@@ -1154,7 +1120,6 @@ const service = (() => {
       );
 
       const referalData = response.data;
-      console.log(referalData);
 
       return {
         error: false,
@@ -1226,6 +1191,59 @@ const service = (() => {
     }
   };
 
+  const postReview = async (token: string, payload: IReview) => {
+    try {
+      const response = await axios.post(
+        `${BASE_JSON_URL}/660/reviews`,
+        payload,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+
+      const reviewData = response.data;
+      return {
+        error: false,
+        data: reviewData,
+        message: response.statusText,
+        code: response.status,
+      };
+    } catch (error: any) {
+      return {
+        error: true,
+        data: null,
+        message: error.response.data,
+        code: error.response.status,
+      };
+    }
+  };
+  const getReview = async (token: string, shippingId: string) => {
+    try {
+      const response = await axios.get(
+        `${BASE_JSON_URL}/660/reviews`,
+        {
+          params: { shipping_id: shippingId },
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+
+      const reviewData = response.data;
+      return {
+        error: false,
+        data: reviewData,
+        message: response.statusText,
+        code: response.status,
+      };
+    } catch (error: any) {
+      return {
+        error: true,
+        data: null,
+        message: error.response.data,
+        code: error.response.status,
+      };
+    }
+  };
+
   return {
     postNewShipping,
     getAccessToken,
@@ -1269,6 +1287,8 @@ const service = (() => {
     getAllUserAddressesPerPage,
     getAllPayments,
     getAllTopUp,
+    postReview,
+    getReview,
   };
 })();
 

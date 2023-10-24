@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { createZusSelector } from "../createZusSelector";
 import { toastifyError } from "@/utils/toastifyError";
 import { useLoading } from "../loading/useLoading";
-import { ICombinedShippingWithUserData } from "@/interface/shippings";
+import { ICombinedShippingWithUserData, IReview } from "@/interface/shippings";
 import { IPagination } from "@/interface/allshipping";
 import { IPayment } from "@/interface/payments";
 import { toastifySuccess } from "@/utils/toastifySuccess";
@@ -13,6 +13,7 @@ type State = {
   shippingDetails: ICombinedShippingWithUserData | undefined;
   pagination: IPagination | undefined;
   paymentDetail: IPayment | undefined;
+  shippingReview: IReview | undefined;
 };
 
 type Actions = {
@@ -35,6 +36,7 @@ type Actions = {
     shipped?: boolean,
     delivered?: boolean,
   ) => void;
+  getAdminReview: (token: string, shipping_id: string) => void;
 };
 
 const useAdminShippingBase = create<State & Actions>((set) => ({
@@ -43,6 +45,35 @@ const useAdminShippingBase = create<State & Actions>((set) => ({
   shippingDetails: undefined,
   pagination: undefined,
   paymentDetail: undefined,
+  shippingReview: undefined,
+  getAdminReview: async (token: string, shipping_id: string) => {
+    const { showLoading, hideLoading } = useLoading.getState();
+    try {
+      showLoading();
+      const response = await fetch(`/api/review?shipping_id=${shipping_id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${token}`,
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+
+        set(() => ({
+          shippingReview: data[0],
+        }));
+        hideLoading();
+      } else {
+        hideLoading();
+        const data = await response.json();
+        toastifyError(data.error);
+      }
+    } catch (error) {
+      hideLoading();
+      toastifyError(String(error));
+    }
+  },
   changeShippingStatus: async (
     token: string,
     shippingId: string,
@@ -68,7 +99,6 @@ const useAdminShippingBase = create<State & Actions>((set) => ({
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
 
         toastifySuccess(data.message);
         hideLoading();
@@ -111,12 +141,10 @@ const useAdminShippingBase = create<State & Actions>((set) => ({
       } else {
         hideLoading();
         const data = await response.json();
-        console.log(data.error);
         toastifyError(data.error);
       }
     } catch (error) {
       hideLoading();
-      console.log(String(error));
       toastifyError(String(error));
     }
   },
@@ -144,12 +172,10 @@ const useAdminShippingBase = create<State & Actions>((set) => ({
       } else {
         hideLoading();
         const data = await response.json();
-        console.log(data.error);
         toastifyError(data.error);
       }
     } catch (error) {
       hideLoading();
-      console.log(String(error));
       toastifyError(String(error));
     }
   },
@@ -181,7 +207,6 @@ const useAdminShippingBase = create<State & Actions>((set) => ({
       );
       if (response.ok) {
         const data = await response.json();
-        console.log(data.pagination);
 
         set(() => ({
           allShippingsData: [...data.shippingList],

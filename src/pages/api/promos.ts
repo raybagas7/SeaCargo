@@ -26,7 +26,6 @@ export default async function handler(
       const uid6 = new ShortUniqueId({ length: 6 });
       const topupId = `promo-${uid6.rnd()}`;
       const { promo_data } = req.body;
-      console.log("asdas", promo_data);
 
       const decoded = token ? decodeJWT(token) : null;
       if (decoded === null) {
@@ -43,11 +42,9 @@ export default async function handler(
         id: topupId,
         expired: convertDateToMilis(String(newDate)),
       };
-      console.log(promoPayload, "hihihi");
 
       const { error, data, message, code }: IResponseApi<any> =
         await service.postPromo(token as string, promoPayload);
-      console.log(data);
 
       if (error && code === 401) {
         res.status(code).json({ error: message });

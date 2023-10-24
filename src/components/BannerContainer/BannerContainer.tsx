@@ -28,7 +28,7 @@ function BannerContainer({ imageUrl }: IBannerContainer) {
 
   return (
     <>
-      <div className="relative mx-[10vw] flex h-[100vh] w-[80vw] overflow-hidden">
+      <div className="relative mx-[10vw] mt-12 flex h-[100vh] w-[80vw] overflow-hidden">
         {imageUrl.map((banner) => (
           <Banner slide={showBanner} key={banner} imgUrl={banner} />
         ))}

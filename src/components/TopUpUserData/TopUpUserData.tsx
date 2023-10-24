@@ -25,10 +25,16 @@ function TopUpUserData({
 
   return (
     <>
-      <img src={photo} className="h-16 w-16 rounded-full object-cover" />
+      <img
+        src={photo}
+        className="h-16 w-16 rounded-full object-cover tablet:h-24 tablet:w-24"
+      />
       <div className="mt-3 space-y-1 text-center text-white">
         <p className="text-[1.5rem] font-bold">{fullname}</p>
-        <p>{phone}</p>
+        <p>
+          Phone: <span className="font-bold">+62</span>
+          {phone}
+        </p>
         <Button
           type="button"
           onClick={onClickReferal}

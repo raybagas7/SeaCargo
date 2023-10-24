@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getCookie } from "cookies-next";
 import { useShipping } from "@/store/shipping/useShipping";
-import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { FaFlag, FaMapMarkerAlt, FaWallet } from "react-icons/fa";
 import { FaHourglassHalf, FaShip } from "react-icons/fa";
 import { GiShipWreck } from "react-icons/gi";
@@ -17,6 +16,8 @@ import { BiSolidDiscount } from "react-icons/bi";
 import { calculateDiscount } from "@/utils/calculateDiscount";
 import { calculateFinalCost } from "@/utils/calculateFinalCost";
 import ShippingStatus from "../ShippingStatus/ShippingStatus";
+import TextArea from "../TextArea/TextArea";
+import WheeleSpin from "../WheeleSpin/WheeleSpin";
 
 export interface IShippingDetails {
   shippingId: string;
@@ -28,36 +29,36 @@ function ShippingDetails({ shippingId }: IShippingDetails) {
   const wallet = useUser.use.walletData();
   const selectedPromo = useShipping.use.selectedPromo();
   const [referal, setReferal] = useState<string>("");
+  const [review, setReview] = useState<string>("");
   const token = getCookie("accessToken");
+  const shippingReview = useShipping.use.shippingReview();
 
   const onChangeReferal = (e: React.ChangeEvent<HTMLInputElement>) => {
     setReferal(e.target.value);
   };
+  const onChangeReview = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setReview(e.target.value);
+  };
 
-  const { getShippingDetails, resetPromo, checkReferal, payShipping } =
-    useShipping.getState();
+  const {
+    getShippingDetails,
+    resetPromo,
+    checkReferal,
+    payShipping,
+    postReview,
+    getReview,
+  } = useShipping.getState();
   const { showModal2 } = useModal.getState();
   const { getWalletData } = useUser.getState();
   useEffect(() => {
     getShippingDetails(token as string, shippingId);
     getWalletData(token as string);
+    getReview(token as string, shippingId);
   }, [shippingId]);
 
   if (!shippingDetails) {
-    return <LoadingSpinner />;
+    return <WheeleSpin />;
   }
-
-  const countDiscount = (
-    totalCost: number,
-    discount: number,
-    maxDisc: number,
-  ) => {
-    const dicount = (discount / 100) * totalCost;
-    if (dicount > maxDisc) {
-      return maxDisc;
-    }
-    return dicount;
-  };
 
   const handleCheckReferal = () => {
     checkReferal(token as string, referal);
@@ -72,6 +73,10 @@ function ShippingDetails({ shippingId }: IShippingDetails) {
       selectedPromo?.id,
       referal ? referal : undefined,
     );
+  };
+
+  const handleReview = () => {
+    postReview(token as string, shippingId, review);
   };
 
   return (
@@ -419,6 +424,46 @@ function ShippingDetails({ shippingId }: IShippingDetails) {
             </div>
           </div>
         )}
+        {shippingDetails.delivered ? (
+          <div className="relative flex w-full flex-col items-center justify-center gap-2 overflow-hidden rounded-lg border-[0.5px] border-border-light p-3 text-xs shadow-md dark:border-border-dark dark:shadow dark:shadow-white/10">
+            {!shippingDetails && (
+              <BsFillBoxSeamFill className="absolute -bottom-6 -left-3 h-36 w-36 text-green-500/30" />
+            )}
+            <p className="text-center text-lg font-bold text-prim-light dark:text-prim-dark">
+              Review
+            </p>
+            {shippingReview ? (
+              <div className="relative mt-5 w-full rounded-lg border-[0.5px] border-prim-light p-3 dark:border-prim-dark">
+                <p className="absolute -top-2 bg-prim-libg px-1 text-xs text-prim-light dark:bg-prim-dkbg dark:text-prim-dark">
+                  Review Description
+                </p>
+                <p>{shippingReview.review}</p>
+              </div>
+            ) : (
+              <>
+                <TextArea
+                  value={review}
+                  onChange={(e) => onChangeReview(e)}
+                  small
+                  name="review-shipping"
+                  label="Review"
+                />
+                <div className="z-10 flex w-full justify-center border-t-2 p-2">
+                  <Button
+                    onClick={handleReview}
+                    type="button"
+                    name="pay-shipping"
+                    small
+                    wmax
+                    primary
+                  >
+                    Submit
+                  </Button>
+                </div>
+              </>
+            )}
+          </div>
+        ) : null}
       </div>
     </div>
   );

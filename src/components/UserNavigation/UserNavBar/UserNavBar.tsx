@@ -31,25 +31,28 @@ function UserNavBar({ toggleAside }: IUserNavBar) {
         onClick={toggleAside}
       />
       <div className="flex items-center gap-10">
-        <SeaCargo className="h-auto w-16 fill-prim-light dark:fill-prim-dark" />
+        <SeaCargo
+          onClick={() => router.push("/user")}
+          className="h-auto w-16 cursor-pointer fill-prim-light dark:fill-prim-dark"
+        />
         <nav className="hidden text-sec-litext tablet:block">
           <ul className="flex space-x-5">
             <Link
               className={`${
                 router.pathname === "/user/addresses"
-                  ? "bg-prim-light/20 text-prim-light"
+                  ? "bg-prim-light/20 text-prim-light dark:bg-prim-dark/20 dark:text-prim-dark"
                   : ""
-              } rounded-lg px-3 py-1 transition-colors hover:bg-prim-light/20 hover:text-prim-light hover:transition-colors`}
+              } rounded-lg px-3 py-1 transition-colors hover:bg-prim-light/20 hover:text-prim-light hover:transition-colors dark:text-white dark:hover:bg-prim-dark/20 dark:hover:text-prim-dark`}
               href="/user/addresses"
             >
-              Addresses
+              Addresse
             </Link>
             <Link
               className={`${
                 router.pathname === "/user/topup"
-                  ? "bg-prim-light/20 text-prim-light"
+                  ? "bg-prim-light/20 text-prim-light dark:bg-prim-dark/20 dark:text-prim-dark"
                   : ""
-              } rounded-lg px-3 py-1 transition-colors hover:bg-prim-light/20 hover:text-prim-light hover:transition-colors`}
+              } rounded-lg px-3 py-1 transition-colors hover:bg-prim-light/20 hover:text-prim-light hover:transition-colors dark:text-white dark:hover:bg-prim-dark/20 dark:hover:text-prim-dark`}
               href="/user/topup"
             >
               Topup
@@ -57,9 +60,9 @@ function UserNavBar({ toggleAside }: IUserNavBar) {
             <Link
               className={`${
                 router.pathname === "/user/payments"
-                  ? "bg-prim-light/20 text-prim-light"
+                  ? "bg-prim-light/20 text-prim-light dark:bg-prim-dark/20 dark:text-prim-dark"
                   : ""
-              } rounded-lg px-3 py-1 transition-colors hover:bg-prim-light/20 hover:text-prim-light hover:transition-colors`}
+              } rounded-lg px-3 py-1 transition-colors hover:bg-prim-light/20 hover:text-prim-light hover:transition-colors dark:text-white dark:hover:bg-prim-dark/20 dark:hover:text-prim-dark`}
               href="/user/payments"
             >
               Payments
@@ -68,9 +71,9 @@ function UserNavBar({ toggleAside }: IUserNavBar) {
               className={`${
                 router.pathname === "/user/shipping" ||
                 router.pathname === "/user/shipping/create"
-                  ? "bg-prim-light/20 text-prim-light"
-                  : ""
-              } group relative cursor-pointer rounded-lg px-3 py-1 transition-colors hover:bg-prim-light/20 hover:text-prim-light hover:transition-colors`}
+                  ? "bg-prim-light/20 text-prim-light dark:bg-prim-dark/20 dark:text-prim-dark"
+                  : "dark:text-white"
+              } group relative cursor-pointer rounded-lg px-3 py-1 transition-colors hover:bg-prim-light/20 hover:text-prim-light hover:transition-colors dark:hover:bg-prim-dark/20 dark:hover:text-prim-dark`}
             >
               <p>Shipping</p>
               {/*top-[3.250rem]*/}

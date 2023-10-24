@@ -134,6 +134,7 @@ function SelectShippingAddress({
           required
         />
         <TextArea
+          required
           value={addressData.detailAddress}
           name="detail-address"
           label="Detail Address"

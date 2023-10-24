@@ -76,6 +76,15 @@ export interface ICombinedShippingWithUserData {
   photo: string;
 }
 
+export interface IReview {
+  id: string;
+  userId: string;
+  shipping_id: string;
+  review: string;
+  createdAt: number;
+  updatedAt: number;
+}
+
 export interface IPromosData {
   id: string;
   name: string;

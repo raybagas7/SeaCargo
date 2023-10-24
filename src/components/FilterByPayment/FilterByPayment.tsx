@@ -20,8 +20,8 @@ function FilterByPayment({
   onChangePageManagement,
 }: IFilterByPayment) {
   return (
-    <div className="mb-5 flex justify-between">
-      <div className="flex items-end">
+    <div className="mb-5 flex justify-between max-md:flex-col">
+      <div className="flex items-end max-md:mb-3">
         <Input
           value={search}
           onChange={(e) => onChangeSearch(e)}
@@ -30,7 +30,7 @@ function FilterByPayment({
           normal
         />
       </div>
-      <div className="flex w-[50%] gap-3">
+      <div className="flex w-[50%] gap-3 max-md:w-full">
         <UniSelect
           name="sort-order"
           label="Order"

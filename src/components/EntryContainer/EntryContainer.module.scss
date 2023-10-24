@@ -1,9 +1,9 @@
 .container {
-  @apply absolute flex h-full w-[50vw] flex-col items-center justify-center;
+  @apply absolute flex h-full w-[50vw] flex-col items-center justify-center max-tablet:w-[100vw];
 }
 
 .wrapper {
-  @apply w-[40vw] rounded-lg border-[0.5px] border-sec-light bg-prim-libg p-10 shadow-lg;
+  @apply w-[40vw]  rounded-lg border-[0.5px] border-border-light bg-prim-libg p-10 shadow-lg max-tablet:w-[90vw];
 }
 
 .slideLeft {

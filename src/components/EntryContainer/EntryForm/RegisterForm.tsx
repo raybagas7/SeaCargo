@@ -53,7 +53,7 @@ function RegisterForm() {
 
   return (
     <>
-      <h1 className="mb-5 text-center text-prim-litext dark:text-prim-dktext">
+      <h1 className="mb-5 text-center text-lg font-bold text-prim-light dark:text-prim-dark">
         REGISTER
       </h1>
       <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col gap-3">
@@ -83,6 +83,8 @@ function RegisterForm() {
           type="text"
           name="fullname-register"
           placeholder="Fullname"
+          minLength={3}
+          required
         />
         <div className="flex w-full">
           <div className=" flex w-10 items-center justify-center rounded-l-lg bg-prim-light text-white dark:bg-prim-dark">
@@ -98,6 +100,7 @@ function RegisterForm() {
               type="number"
               name="phone-register"
               placeholder="Phone"
+              required
             />
           </div>
         </div>

@@ -18,19 +18,6 @@ import MiniNavBar from "./MiniNavBar/MiniNavBar";
 import { useAdmin } from "@/store/admin/useAdmin";
 import SeaCargo from "../SVG/SeaCargo";
 
-// const fetcher = async (url: string) => {
-//   const response = await axios.get(url);
-//   console.log(response);
-
-//   return response.data;
-// };
-// const fetcherWithToken = async (url: string, token: string) => {
-//   const response = await axios.get(url, { headers: { Authorization: token } });
-//   console.log(response);
-
-//   return response.data;
-// };
-
 function SideBar() {
   const [asideHide, setAsideHide] = useState(true);
   const router = useRouter();
@@ -65,7 +52,10 @@ function SideBar() {
       >
         <div className="relative overflow-y-scroll py-12" id="aside-navigation">
           <div className="fixed left-0 top-0 flex w-full items-center justify-between border-b-[0.5px] border-prim-light bg-prim-libg px-12 py-5">
-            <SeaCargo className="w-16 fill-prim-light dark:fill-prim-dark" />
+            <SeaCargo
+              onClick={() => router.push("/admin")}
+              className="w-16 cursor-pointer fill-prim-light dark:fill-prim-dark"
+            />
             <div className="tablet:hidden">
               <IoClose
                 onClick={toggleAside}

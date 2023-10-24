@@ -22,7 +22,6 @@ function GamesLayout() {
 
   return (
     <div>
-      {/*3.12*/}
       <div className="grid h-[13rem] w-[20rem] grid-cols-3 gap-[1rem] tablet:h-[15rem] tablet:w-[34.375rem] tablet:gap-[3.12rem]">
         {randPrize.map((prize, index) => (
           <Card
