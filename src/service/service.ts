@@ -1,8 +1,7 @@
 import { IPayment } from "@/interface/payments";
 import { IShippingDataPayload } from "@/interface/shippings";
-// import { process.env.BASE_JSON_URL } from "@/utils/connection";
+import { BASE_JSON_URL } from "@/utils/connection";
 import axios from "axios";
-import { URLSearchParams } from "url";
 
 const service = (() => {
   const getAccessToken = () => {
@@ -16,7 +15,7 @@ const service = (() => {
   const postUserRegister = async (payload: any) => {
     try {
       const response = await axios.post(
-        `${process.env.BASE_JSON_URL}/register`,
+        `${BASE_JSON_URL}/register`,
         payload,
       );
 
@@ -42,7 +41,7 @@ const service = (() => {
   const postUserLogin = async (payload: any) => {
     try {
       const response = await axios.post(
-        `${process.env.BASE_JSON_URL}/login`,
+        `${BASE_JSON_URL}/login`,
         payload,
       );
 
@@ -68,7 +67,7 @@ const service = (() => {
   const postMakeWallet = async (payload: any) => {
     try {
       const response = await axios.post(
-        `${process.env.BASE_JSON_URL}/wallets`,
+        `${BASE_JSON_URL}/wallets`,
         payload,
       );
 
@@ -92,7 +91,7 @@ const service = (() => {
   const getUserData = async (id: string, token: string) => {
     try {
       const response = await axios.get(
-        `${process.env.BASE_JSON_URL}/660/users`,
+        `${BASE_JSON_URL}/660/users`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: { id },
@@ -126,7 +125,7 @@ const service = (() => {
 
     try {
       const response = await axios.patch(
-        `${process.env.BASE_JSON_URL}/660/users/${id}`,
+        `${BASE_JSON_URL}/660/users/${id}`,
         payload,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -156,7 +155,7 @@ const service = (() => {
   const getWalletUserData = async (id: string, token: string) => {
     try {
       const response = await axios.get(
-        `${process.env.BASE_JSON_URL}/660/wallets`,
+        `${BASE_JSON_URL}/660/wallets`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: { userId: id },
@@ -192,7 +191,7 @@ const service = (() => {
       console.log(walletId, balance, token);
 
       const response = await axios.patch(
-        `${process.env.BASE_JSON_URL}/640/wallets/${walletId}`,
+        `${BASE_JSON_URL}/640/wallets/${walletId}`,
         { balance },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -221,7 +220,7 @@ const service = (() => {
 
     try {
       const response = await axios.post(
-        `${process.env.BASE_JSON_URL}/660/promos`,
+        `${BASE_JSON_URL}/660/promos`,
         payload,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -248,7 +247,7 @@ const service = (() => {
   const patchPromo = async (promoId: string, token: string, count: number) => {
     try {
       const response = await axios.patch(
-        `${process.env.BASE_JSON_URL}/660/promos/${promoId}`,
+        `${BASE_JSON_URL}/660/promos/${promoId}`,
         { count },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -277,7 +276,7 @@ const service = (() => {
       console.log(shippingId, token);
 
       const response = await axios.patch(
-        `${process.env.BASE_JSON_URL}/640/shippings/${shippingId}`,
+        `${BASE_JSON_URL}/640/shippings/${shippingId}`,
         { paid: true },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -306,7 +305,7 @@ const service = (() => {
       console.log(shippingId, token);
 
       const response = await axios.patch(
-        `${process.env.BASE_JSON_URL}/660/shippings/${shippingId}`,
+        `${BASE_JSON_URL}/660/shippings/${shippingId}`,
         { cancel: true },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -335,7 +334,7 @@ const service = (() => {
       console.log(shippingId, token);
 
       const response = await axios.patch(
-        `${process.env.BASE_JSON_URL}/660/shippings/${shippingId}`,
+        `${BASE_JSON_URL}/660/shippings/${shippingId}`,
         { shipped: true },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -367,7 +366,7 @@ const service = (() => {
       console.log(shippingId, token);
 
       const response = await axios.patch(
-        `${process.env.BASE_JSON_URL}/660/shippings/${shippingId}`,
+        `${BASE_JSON_URL}/660/shippings/${shippingId}`,
         { delivered: true, shipped: true },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -400,7 +399,7 @@ const service = (() => {
       console.log(walletId, balance, token);
 
       const response = await axios.patch(
-        `${process.env.BASE_JSON_URL}/660/wallets/${walletId}`,
+        `${BASE_JSON_URL}/660/wallets/${walletId}`,
         { balance },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -427,7 +426,7 @@ const service = (() => {
   const postTopUp = async (token: string, payload: any) => {
     try {
       const response = await axios.post(
-        `${process.env.BASE_JSON_URL}/660/topups`,
+        `${BASE_JSON_URL}/660/topups`,
         payload,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -454,7 +453,7 @@ const service = (() => {
   const getTopUpData = async (token: string, userId: string) => {
     try {
       const response = await axios.get(
-        `${process.env.BASE_JSON_URL}/660/topups`,
+        `${BASE_JSON_URL}/660/topups`,
         {
           params: { owner: userId },
           headers: { Authorization: `Bearer ${token}` },
@@ -482,7 +481,7 @@ const service = (() => {
   const getAllTopUp = async (token: string) => {
     try {
       const response = await axios.get(
-        `${process.env.BASE_JSON_URL}/660/topups`,
+        `${BASE_JSON_URL}/660/topups`,
         {
           headers: { Authorization: `Bearer ${token}` },
         },
@@ -512,7 +511,7 @@ const service = (() => {
         `https://api.rajaongkir.com/starter/province`,
         {
           headers: {
-            key: process.env.RAJA_ONGKIR_API_KEY_1,
+            key: "4acc68474d7b20b55df2534dc61458d2",
           },
         },
       );
@@ -541,7 +540,7 @@ const service = (() => {
         {
           params: { province: provinceCode },
           headers: {
-            key: process.env.RAJA_ONGKIR_API_KEY_1,
+            key: "4acc68474d7b20b55df2534dc61458d2",
           },
         },
       );
@@ -572,7 +571,7 @@ const service = (() => {
   ) => {
     try {
       const bodyParameters = {
-        key: process.env.RAJA_ONGKIR_API_KEY_1,
+        key: "4acc68474d7b20b55df2534dc61458d2",
         origin,
         destination,
         weight,
@@ -608,7 +607,7 @@ const service = (() => {
   const postNewAddress = async (token: string, payload: any) => {
     try {
       const response = await axios.post(
-        `${process.env.BASE_JSON_URL}/660/addresses`,
+        `${BASE_JSON_URL}/660/addresses`,
         payload,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -639,7 +638,7 @@ const service = (() => {
   ) => {
     try {
       const response = await axios.patch(
-        `${process.env.BASE_JSON_URL}/660/addresses/${addressId}`,
+        `${BASE_JSON_URL}/660/addresses/${addressId}`,
         payload,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -666,7 +665,7 @@ const service = (() => {
   const getUserAddresses = async (token: string, userId: string) => {
     try {
       const response = await axios.get(
-        `${process.env.BASE_JSON_URL}/660/addresses`,
+        `${BASE_JSON_URL}/660/addresses`,
         {
           params: { owner: userId },
           headers: { Authorization: `Bearer ${token}` },
@@ -693,7 +692,7 @@ const service = (() => {
   const getAllUserAddresses = async (token: string) => {
     try {
       const response = await axios.get(
-        `${process.env.BASE_JSON_URL}/660/addresses`,
+        `${BASE_JSON_URL}/660/addresses`,
         {
           headers: { Authorization: `Bearer ${token}` },
         },
@@ -737,7 +736,7 @@ const service = (() => {
       }
 
       const response = await axios.get(
-        `${process.env.BASE_JSON_URL}/660/addresses`,
+        `${BASE_JSON_URL}/660/addresses`,
         {
           params,
           headers: { Authorization: `Bearer ${token}` },
@@ -767,7 +766,7 @@ const service = (() => {
   ) => {
     try {
       const response = await axios.post(
-        `${process.env.BASE_JSON_URL}/660/shippings`,
+        `${BASE_JSON_URL}/660/shippings`,
         payload,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -814,7 +813,7 @@ const service = (() => {
 
     try {
       const response = await axios.get(
-        `${process.env.BASE_JSON_URL}/660/shippings`,
+        `${BASE_JSON_URL}/660/shippings`,
         {
           params,
           headers: { Authorization: `Bearer ${token}` },
@@ -861,7 +860,7 @@ const service = (() => {
 
     try {
       const response = await axios.get(
-        `${process.env.BASE_JSON_URL}/660/payments`,
+        `${BASE_JSON_URL}/660/payments`,
         {
           params,
           headers: { Authorization: `Bearer ${token}` },
@@ -888,7 +887,7 @@ const service = (() => {
   const getAllUserPayments = async (token: string, userId: string) => {
     try {
       const response = await axios.get(
-        `${process.env.BASE_JSON_URL}/660/payments`,
+        `${BASE_JSON_URL}/660/payments`,
         {
           params: { userId },
           headers: { Authorization: `Bearer ${token}` },
@@ -915,7 +914,7 @@ const service = (() => {
   const getAllPayments = async (token: string) => {
     try {
       const response = await axios.get(
-        `${process.env.BASE_JSON_URL}/660/payments`,
+        `${BASE_JSON_URL}/660/payments`,
         {
           headers: { Authorization: `Bearer ${token}` },
         },
@@ -941,7 +940,7 @@ const service = (() => {
   const getAllUserShippings = async (token: string, userId: string) => {
     try {
       const response = await axios.get(
-        `${process.env.BASE_JSON_URL}/660/shippings`,
+        `${BASE_JSON_URL}/660/shippings`,
         {
           params: { userId },
           headers: { Authorization: `Bearer ${token}` },
@@ -968,7 +967,7 @@ const service = (() => {
   const getAdminDetailPayment = async (token: string, shippingId: string) => {
     try {
       const response = await axios.get(
-        `${process.env.BASE_JSON_URL}/660/payments`,
+        `${BASE_JSON_URL}/660/payments`,
         {
           params: { shipping_id: shippingId },
           headers: { Authorization: `Bearer ${token}` },
@@ -1013,7 +1012,7 @@ const service = (() => {
       }
 
       const response = await axios.get(
-        `${process.env.BASE_JSON_URL}/660/shippings`,
+        `${BASE_JSON_URL}/660/shippings`,
         {
           params,
           headers: { Authorization: `Bearer ${token}` },
@@ -1040,7 +1039,7 @@ const service = (() => {
   const getAllShippings = async (token: string) => {
     try {
       const response = await axios.get(
-        `${process.env.BASE_JSON_URL}/660/shippings`,
+        `${BASE_JSON_URL}/660/shippings`,
         {
           headers: { Authorization: `Bearer ${token}` },
         },
@@ -1066,7 +1065,7 @@ const service = (() => {
   const getAllUsers = async (token: string) => {
     try {
       const response = await axios.get(
-        `${process.env.BASE_JSON_URL}/660/users`,
+        `${BASE_JSON_URL}/660/users`,
         {
           headers: { Authorization: `Bearer ${token}` },
         },
@@ -1092,7 +1091,7 @@ const service = (() => {
   const getShippingDetail = async (token: string, shippingCode: string) => {
     try {
       const response = await axios.get(
-        `${process.env.BASE_JSON_URL}/660/shippings/${shippingCode}`,
+        `${BASE_JSON_URL}/660/shippings/${shippingCode}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         },
@@ -1120,7 +1119,7 @@ const service = (() => {
   const getPromos = async (token: string) => {
     try {
       const response = await axios.get(
-        `${process.env.BASE_JSON_URL}/660/promos`,
+        `${BASE_JSON_URL}/660/promos`,
         {
           headers: { Authorization: `Bearer ${token}` },
         },
@@ -1147,7 +1146,7 @@ const service = (() => {
   const getReferalData = async (token: string, referalCode: string) => {
     try {
       const response = await axios.get(
-        `${process.env.BASE_JSON_URL}/660/users`,
+        `${BASE_JSON_URL}/660/users`,
         {
           params: { referal: referalCode },
           headers: { Authorization: `Bearer ${token}` },
@@ -1176,7 +1175,7 @@ const service = (() => {
   const getSelectedPromo = async (token: string, promoId: string) => {
     try {
       const response = await axios.get(
-        `${process.env.BASE_JSON_URL}/660/promos/${promoId}`,
+        `${BASE_JSON_URL}/660/promos/${promoId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         },
@@ -1203,7 +1202,7 @@ const service = (() => {
   const postNewPayment = async (token: string, payload: IPayment) => {
     try {
       const response = await axios.post(
-        `${process.env.BASE_JSON_URL}/660/payments`,
+        `${BASE_JSON_URL}/660/payments`,
         payload,
         {
           headers: { Authorization: `Bearer ${token}` },

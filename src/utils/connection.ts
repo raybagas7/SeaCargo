@@ -1,1 +1,1 @@
-// export const BASE_JSON_URL = "http://localhost:9030";
+export const BASE_JSON_URL = "https://sea-cargo-json-server.vercel.app";
