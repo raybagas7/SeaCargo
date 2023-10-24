@@ -1,0 +1,35 @@
+.updateButton {
+  @apply relative h-fit w-fit overflow-hidden rounded-full border-[1px] border-transparent px-3 py-1 text-xs font-bold outline-none transition;
+}
+
+.updateButtonMax {
+  @apply w-full;
+}
+
+.cancelButton:hover {
+  @apply -translate-y-1 border-[1px] border-red-500 bg-prim-libg text-red-500 shadow-huge-up transition;
+}
+
+.cancelButton {
+  @apply bg-red-500 text-white;
+}
+
+.shipButton:hover {
+  @apply -translate-y-1 border-[1px] border-cyan-500 bg-prim-libg text-cyan-500 shadow-huge-up transition;
+}
+
+.shipButton {
+  @apply bg-cyan-500 text-white;
+}
+
+.deliverButton:hover {
+  @apply -translate-y-1 border-[1px] border-green-500 bg-prim-libg text-green-500 shadow-huge-up transition;
+}
+
+.deliverButton {
+  @apply bg-green-500 text-white;
+}
+
+.updateButtonDisabled {
+  @apply bg-muted-text text-white;
+}

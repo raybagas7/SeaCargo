@@ -1,0 +1,35 @@
+.buttonLarge {
+  @apply rounded-full px-7 py-3 text-xl transition;
+}
+
+.buttonNormal {
+  @apply rounded-full px-5 py-2 transition;
+}
+
+.buttonSmall {
+  @apply rounded-full px-3 py-1 text-xs transition;
+}
+
+.button {
+  @apply h-fit w-fit outline-none;
+}
+
+.buttonMax {
+  @apply w-full;
+}
+
+.primaryButton {
+  @apply border-[1px] border-prim-light bg-prim-light text-prim-libg;
+}
+
+.buttonPrimHover:hover {
+  @apply -translate-y-1 border-[1px] border-prim-light bg-prim-libg text-prim-light shadow-huge-up transition;
+}
+
+.secondaryButton {
+  @apply border-[1px] border-prim-light bg-prim-libg text-prim-light;
+}
+
+.buttonSecHover:hover {
+  @apply -translate-y-1 border-[1px] border-prim-light bg-prim-light text-prim-libg shadow-huge-up transition;
+}

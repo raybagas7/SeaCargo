@@ -1,0 +1,11 @@
+.linkContainer {
+  @apply flex items-center gap-3 rounded-lg px-2 py-2 transition-colors;
+}
+
+.unactiveList {
+  @apply hover:bg-prim-light/10 hover:text-prim-light;
+}
+
+.activeList {
+  @apply bg-prim-light text-white;
+}

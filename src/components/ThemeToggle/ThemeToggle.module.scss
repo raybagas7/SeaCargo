@@ -1,0 +1,23 @@
+.themeContainer {
+  @apply relative flex h-8 w-16 items-center rounded-full border-2 p-1;
+}
+
+.lightModeContainer {
+  @apply border-prim-light bg-prim-libg transition-colors duration-500;
+}
+
+.darkModeContainer {
+  @apply border-prim-dark bg-prim-dkbg transition-colors duration-500;
+}
+
+.themeToggler {
+  @apply h-6 w-6 cursor-pointer rounded-full;
+}
+
+.lightModeToggler {
+  @apply absolute animate-ligth_mode bg-prim-light transition-colors duration-500;
+}
+
+.darkModeToggler {
+  @apply absolute animate-dark_mode bg-prim-dark transition duration-500;
+}

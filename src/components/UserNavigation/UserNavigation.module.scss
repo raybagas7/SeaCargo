@@ -1,0 +1,7 @@
+.asideContainer {
+  @apply fixed left-0 top-0 z-20 flex h-[100vh] w-[100vw] flex-col justify-between transition-transform duration-500;
+}
+
+.listWrapper {
+  @apply mt-[34px] space-y-5;
+}

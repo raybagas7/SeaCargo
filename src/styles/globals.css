@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"); */
+/* @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap");
+@import "react-toastify/dist/ReactToastify.css";
+
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+body {
+  /* font-family: "Poppins", sans-serif; */
+  /* font-family: "Ubuntu", sans-serif; */
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+#aside-navigation {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+#aside-navigation::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+#aside-navigation::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+#aside-navigation::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+#payment-list::-webkit-scrollbar,
+#topup-history::-webkit-scrollbar,
+#payment-detail::-webkit-scrollbar,
+#list-container::-webkit-scrollbar {
+  @apply h-2 w-2;
+}
+
+/* Track */
+#payment-list::-webkit-scrollbar-track,
+#topup-history::-webkit-scrollbar-track,
+#payment-detail::-webkit-scrollbar-track,
+#list-container::-webkit-scrollbar-track {
+  @apply rounded-full;
+}
+
+/* Handle */
+#payment-list::-webkit-scrollbar-thumb,
+#topup-history::-webkit-scrollbar-thumb,
+#payment-detail::-webkit-scrollbar-thumb,
+#list-container::-webkit-scrollbar-thumb {
+  @apply rounded-lg bg-prim-light/30 dark:bg-prim-dark/30;
+}
+
+/* Handle on hover */
+#payment-list::-webkit-scrollbar-thumb:hover,
+#topup-history::-webkit-scrollbar-thumb:hover,
+#payment-detail::-webkit-scrollbar-thumb:hover,
+#list-container::-webkit-scrollbar-thumb:hover {
+  @apply cursor-pointer bg-prim-light dark:bg-prim-dark;
+}

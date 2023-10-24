@@ -1,0 +1,15 @@
+.container {
+  @apply absolute flex h-full w-[50vw] flex-col items-center justify-center;
+}
+
+.wrapper {
+  @apply w-[40vw] rounded-lg border-[0.5px] border-sec-light bg-prim-libg p-10 shadow-lg;
+}
+
+.slideLeft {
+  @apply -translate-x-full transition-transform duration-300;
+}
+
+.slideRight {
+  @apply translate-x-0 transition-transform duration-[1500ms];
+}

@@ -1,0 +1,33 @@
+.input {
+  @apply bg-prim-libg outline-none disabled:bg-sec-light/50;
+}
+
+.inputNormal {
+  @apply px-5 py-2 text-prim-litext transition;
+}
+
+.inputSmall {
+  @apply px-3 py-1 text-xs text-prim-litext transition;
+}
+
+.inputLarge {
+  @apply px-7 py-3 text-xl text-prim-litext transition;
+}
+
+.inputNormal:focus,
+.inputSmall:focus,
+.inputLarge:focus {
+  @apply bg-sec-light/30 transition;
+}
+
+.wmax {
+  @apply w-full;
+}
+
+.containerInput {
+  @apply w-fit border-b-[1px] border-prim-light;
+}
+
+.containerMax {
+  @apply w-full;
+}
