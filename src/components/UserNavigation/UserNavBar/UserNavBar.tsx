@@ -45,7 +45,7 @@ function UserNavBar({ toggleAside }: IUserNavBar) {
               } rounded-lg px-3 py-1 transition-colors hover:bg-prim-light/20 hover:text-prim-light hover:transition-colors dark:text-white dark:hover:bg-prim-dark/20 dark:hover:text-prim-dark`}
               href="/user/addresses"
             >
-              Addresse
+              Addresses
             </Link>
             <Link
               className={`${
