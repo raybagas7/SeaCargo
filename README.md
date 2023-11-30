@@ -1,4 +1,4 @@
-# NextJs Assignment
+# Sea Cargo
 
 ## First setup:
 
